@@ -23,3 +23,7 @@ holidays:
   2024-12-26: Boxing Day
   2025-01-01: New Year's Day
 ```
+
+This renders a calendar like this:
+
+![Demo Calendar View](doc/calendar.png)
