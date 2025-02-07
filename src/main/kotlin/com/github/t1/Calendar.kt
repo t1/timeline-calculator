@@ -67,6 +67,7 @@ class Calendar : AbstractElement<Calendar> {
     private fun dayTag(date: LocalDate): Tag {
         val onVacation = project.team.values.filter { member -> member.isInVacationAt(date) }
         val allOnVacation = onVacation.size == project.team.size
+        val inOpt = project.team.values.filter { member -> member.hasOpt(date) }
         val (color, title) = when {
             date in project.holidays -> BLACK to project.holidays[date]!!
             date.dayOfWeek in WEEKEND -> GHOST to "weekend"
@@ -75,6 +76,7 @@ class Calendar : AbstractElement<Calendar> {
             allOnVacation -> DARK to "all on vacation"
             date == lastDay -> INFO to "last day: ${lastDayRemaining.fractionalHours.roundTo(2)}h"
             onVacation.isNotEmpty() -> INFO to "on vacation: " + onVacation.joinToString { it.name ?: "?" }
+            inOpt.isNotEmpty() -> LINK to "OPT: " + inOpt.joinToString { it.name ?: "?" }
             date > lastDay -> GHOST to "after end"
             else -> PRIMARY to "all in"
         }

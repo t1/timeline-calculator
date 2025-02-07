@@ -15,6 +15,7 @@ import kotlinx.serialization.encoding.Encoder
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.time.DayOfWeek.FRIDAY
 import java.time.DayOfWeek.SATURDAY
 import java.time.DayOfWeek.SUNDAY
 import java.time.LocalDate
@@ -77,10 +78,12 @@ object LocalDateSerializer : KSerializer<LocalDate> {
 @Serializable
 data class TeamMember(
     var name: String? = null,
+    var opt: Boolean = true,
     var vacations: MutableList<Vacation> = mutableListOf()
 ) {
     fun isWorkingAt(date: LocalDate) = !hasFreeAt(date)
-    fun hasFreeAt(date: LocalDate) = isInVacationAt(date) || date.dayOfWeek in WEEKEND
+    fun hasFreeAt(date: LocalDate) = hasOpt(date) || isInVacationAt(date) || date.dayOfWeek in WEEKEND
+    fun hasOpt(date: LocalDate): Boolean = opt && date.dayOfWeek == FRIDAY
     fun isInVacationAt(date: LocalDate) = vacations.any { date in it }
 }
 
