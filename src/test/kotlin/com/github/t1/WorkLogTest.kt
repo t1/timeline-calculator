@@ -142,6 +142,42 @@ class WorkLogTest {
     }
 
     @Test
+    fun shouldParseFloatingPointDays() {
+        val workLog = WorkLog("1.5d")
+
+        then(workLog.totalWeeks).isEqualTo(0)
+        then(workLog.totalDays).isEqualTo(1)
+        then(workLog.totalHours).isEqualTo(12)
+        then(workLog.totalMinutes).isEqualTo(720)
+        then(workLog.fractionalDays.roundTo(3)).isEqualTo(1.500)
+        then(workLog.toString()).isEqualTo("1d 4h")
+    }
+
+    @Test
+    fun shouldParseFloatingPointHours() {
+        val workLog = WorkLog("1d 1.75h")
+
+        then(workLog.totalWeeks).isEqualTo(0)
+        then(workLog.totalDays).isEqualTo(1)
+        then(workLog.totalHours).isEqualTo(9)
+        then(workLog.totalMinutes).isEqualTo(585)
+        then(workLog.fractionalDays.roundTo(3)).isEqualTo(1.219)
+        then(workLog.toString()).isEqualTo("1d 1h 45m")
+    }
+
+    @Test
+    fun shouldParseFloatingPointHours2() {
+        val workLog = WorkLog("51d 6.75h")
+
+        then(workLog.totalWeeks).isEqualTo(10)
+        then(workLog.totalDays).isEqualTo(51)
+        then(workLog.totalHours).isEqualTo(414)
+        then(workLog.totalMinutes).isEqualTo(24885)
+        then(workLog.fractionalDays.roundTo(3)).isEqualTo(51.844)
+        then(workLog.toString()).isEqualTo("10w 1d 6h 45m")
+    }
+
+    @Test
     fun shouldCreateFromInt() {
         then(1.weeks.toString()).isEqualTo("1w")
         then(2.days.toString()).isEqualTo("2d")

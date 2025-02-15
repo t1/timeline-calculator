@@ -5,11 +5,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class WorkLog(val totalMinutes: Int) {
     constructor(
-        weeks: Int,
-        days: Int,
-        hours: Int,
-        minutes: Int
-    ) : this(weeks * 5 * 8 * 60 + days * 8 * 60 + hours * 60 + minutes)
+        weeks: Float,
+        days: Float,
+        hours: Float,
+        minutes: Float
+    ) : this((weeks * 5 * 8 * 60 + days * 8 * 60 + hours * 60 + minutes).toInt())
 
     @Suppress("unused")
     constructor(expression: String) : this(parse(expression).totalMinutes)
@@ -46,7 +46,7 @@ data class WorkLog(val totalMinutes: Int) {
     companion object {
         fun parse(expression: String): WorkLog {
             val groups = PATTERN.find(expression)?.groups
-            fun group(name: String): Int = (groups?.get(name)?.value?.toInt() ?: 0)
+            fun group(name: String): Float = (groups?.get(name)?.value?.toFloat() ?: 0f)
 
             val weeks = group("weeks")
             val days = group("days")
@@ -56,11 +56,11 @@ data class WorkLog(val totalMinutes: Int) {
         }
 
         private val PATTERN =
-            """((?<weeks>\d+)w)? *((?<days>\d+)d)? *((?<hours>\d+)h)? *((?<minutes>\d+)m)? *""".toRegex()
+            """((?<weeks>[0-9.]+)w)? *((?<days>[0-9.]+)d)? *((?<hours>[0-9.]+)h)? *((?<minutes>[0-9.]+)m)? *""".toRegex()
     }
 }
 
-val Int.weeks get() = WorkLog(this, 0, 0, 0)
-val Int.days get() = WorkLog(0, this, 0, 0)
-val Int.hours get() = WorkLog(0, 0, this, 0)
-val Int.minutes get() = WorkLog(0, 0, 0, this)
+val Int.weeks get() = WorkLog(this.toFloat(), 0f, 0f, 0f)
+val Int.days get() = WorkLog(0f, this.toFloat(), 0f, 0f)
+val Int.hours get() = WorkLog(0f, 0f, this.toFloat(), 0f)
+val Int.minutes get() = WorkLog(0f, 0f, 0f, this.toFloat())
