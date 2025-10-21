@@ -2,7 +2,7 @@
 
 I'm just trying to keep my Kotlin skills sharp.
 
-This is a little https://quarkus.io/ app that provides a web app showing the remaining time for a project.
+This is a little [Quarkus](https://quarkus.io/) app that provides a web app showing the remaining time for a project.
 Simply enter a project duration (e.g. as copied from the remaining time of a JIRA ticket like `12w 3d 4h 50m`)
 and the app will show you a calendar with the remaining working days.
 

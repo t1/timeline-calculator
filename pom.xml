@@ -66,7 +66,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-webjars-locator</artifactId>
+            <artifactId>quarkus-web-dependency-locator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.webjars.npm</groupId>
@@ -214,6 +214,9 @@
                         <option>all-open:annotation=jakarta.persistence.Entity</option>
                         <option>all-open:annotation=io.quarkus.test.junit.QuarkusTest</option>
                     </pluginOptions>
+                    <args>
+                        <arg>-Xcontext-parameters</arg>
+                    </args>
                 </configuration>
             </plugin>
         </plugins>
