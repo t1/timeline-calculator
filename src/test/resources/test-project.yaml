@@ -1,0 +1,15 @@
+name: "Example Project"
+today: "2025-05-21"
+start: "2025-04-01"
+team:
+  "Alice":
+    name: "Alice"
+    opt: true
+    vacations:
+    - "2025-05-01..2025-05-16"
+  "Bob":
+    name: "Bob"
+    opt: false
+    vacations: []
+holidays:
+  "2025-04-01": "Fool's Day"

@@ -29,10 +29,14 @@ private val PROJECT_YAML: Path = Paths.get("project.yaml")
 class ProjectLoader {
     @Produces
     @RequestScoped
-    fun loadProject(): Project =
-        if (Files.exists(PROJECT_YAML))
-            YAML.decodeFromStream<Project>(Files.newInputStream(PROJECT_YAML))
+    fun loadProject(): Project = loadProject(PROJECT_YAML)
+
+    fun loadProject(path: Path): Project =
+        if (Files.exists(path))
+            YAML.decodeFromStream<Project>(Files.newInputStream(path))
                 .normalize()
+        else if (path != PROJECT_YAML)
+            throw IllegalStateException("Project file $path does not exist")
         else Project()
 }
 
@@ -57,15 +61,16 @@ data class Project(
 
     /** Calculate the project day and the remaining hours on the last day, given the remaining duration */
     fun lastDay(duration: WorkLog): Pair<LocalDate, WorkLog> {
-        var day = today
+        var lastDay = today
         var remaining = duration
         while (true) {
-            val workingTeamMembers = if (day in holidays) 0 else team.values.count { member -> member.isWorkingAt(day) }
+            val workingTeamMembers =
+                if (lastDay in holidays) 0 else team.values.count { member -> member.isWorkingAt(lastDay) }
             if (remaining.fractionalDays <= workingTeamMembers) break
             remaining -= workingTeamMembers.days
-            day += 1
+            lastDay += 1
         }
-        return day to remaining
+        return lastDay to remaining
     }
 }
 
