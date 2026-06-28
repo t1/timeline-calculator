@@ -1,11 +1,8 @@
 package com.github.t1
 
-import com.github.t1.bulmajava.basic.AbstractElement
-import com.github.t1.bulmajava.basic.Basic.h2
 import com.github.t1.bulmajava.basic.Color.INFO
 import com.github.t1.bulmajava.basic.Color.LINK
 import com.github.t1.bulmajava.basic.Color.PRIMARY
-import com.github.t1.bulmajava.basic.Renderable
 import com.github.t1.bulmajava.basic.Style.BLACK
 import com.github.t1.bulmajava.basic.Style.DARK
 import com.github.t1.bulmajava.basic.Style.GHOST
@@ -14,6 +11,9 @@ import com.github.t1.bulmajava.elements.Tag.tag
 import com.github.t1.bulmajava.grid.Grid.cell
 import com.github.t1.bulmajava.grid.Grid.fixedGrid
 import com.github.t1.bulmajava.layout.Container.container
+import com.github.t1.htmljava.AbstractElement
+import com.github.t1.htmljava.HtmlBasics.h2
+import com.github.t1.htmljava.Renderable
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.Month

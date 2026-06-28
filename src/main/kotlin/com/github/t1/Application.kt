@@ -1,10 +1,6 @@
 package com.github.t1
 
 import com.github.t1.YamlMessageBodyWriter.Companion.APPLICATION_YAML
-import com.github.t1.bulmajava.basic.Body.body
-import com.github.t1.bulmajava.basic.Html
-import com.github.t1.bulmajava.basic.Html.html
-import com.github.t1.bulmajava.basic.Renderable
 import com.github.t1.bulmajava.elements.Title.subtitle
 import com.github.t1.bulmajava.elements.Title.title
 import com.github.t1.bulmajava.form.Field.field
@@ -13,6 +9,10 @@ import com.github.t1.bulmajava.form.Input.input
 import com.github.t1.bulmajava.form.InputType.TEXT
 import com.github.t1.bulmajava.layout.Container.container
 import com.github.t1.bulmajava.layout.Section.section
+import com.github.t1.htmljava.Body.body
+import com.github.t1.htmljava.Html
+import com.github.t1.htmljava.Html.html
+import com.github.t1.htmljava.Renderable
 import jakarta.ws.rs.FormParam
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
@@ -37,8 +37,8 @@ class Application(val project: Project) {
     private fun durationForm(): Renderable = form()
         .post("/")
         .content(
-            field().label("Remaining Time Budget").control(
-                input(TEXT).name("remaining").autofocus().required()
+            field("Remaining Time Budget").containing(
+                input(TEXT, "remaining").autofocus().required()
                     .placeholder("1w 2d 3h 4m")
             )
         )
